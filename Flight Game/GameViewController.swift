@@ -10,6 +10,28 @@
 import SceneKit
 
 class GameViewController: UIViewController {
+    
+    var scene: SCNScene {
+        (view as! SCNView).scene!
+    }
+    
+    var ship: SCNNode? {
+        scene.rootNode.childNode(withName: "ship", recursively: true)
+    }
+    
+    func addShip() {
+        // retrieve the ship node
+//        let ship = scene.rootNode.childNode(withName: "ship", recursively: true)!
+        ship?.position.z = -105
+        
+        // animate the 3d object
+        ship?.runAction(SCNAction.move(to: SCNVector3(), duration: 15)) {
+            DispatchQueue.main.async {
+                self.ship?.removeFromParentNode()
+            }
+            print(#line, "GAME OVER")
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,13 +61,6 @@ class GameViewController: UIViewController {
         ambientLightNode.light!.color = UIColor.darkGray
         scene.rootNode.addChildNode(ambientLightNode)
         
-        // retrieve the ship node
-        let ship = scene.rootNode.childNode(withName: "ship", recursively: true)!
-        ship.position.z = -105
-        
-        // animate the 3d object
-//        ship.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 2, z: 0, duration: 1)))
-        
         // retrieve the SCNView
         let scnView = self.view as! SCNView
         
@@ -64,6 +79,9 @@ class GameViewController: UIViewController {
         // add a tap gesture recognizer
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         scnView.addGestureRecognizer(tapGesture)
+        
+        // add ship
+        addShip()
     }
     
     @objc
@@ -73,7 +91,9 @@ class GameViewController: UIViewController {
         
         // check what nodes are tapped
         let p = gestureRecognize.location(in: scnView)
+        
         let hitResults = scnView.hitTest(p, options: [:])
+        
         // check that we clicked on at least one object
         if hitResults.count > 0 {
             // retrieved the first clicked object
@@ -88,12 +108,10 @@ class GameViewController: UIViewController {
             
             // on completion - unhighlight
             SCNTransaction.completionBlock = {
-                SCNTransaction.begin()
-                SCNTransaction.animationDuration = 0.5
-                
-                material.emission.contents = UIColor.black
-                
-                SCNTransaction.commit()
+                DispatchQueue.main.async {
+                    self.ship?.removeFromParentNode()
+                }
+                print(#line, "Ship has been shot")
             }
             
             material.emission.contents = UIColor.red
