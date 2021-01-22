@@ -11,6 +11,10 @@ import SceneKit
 
 class GameViewController: UIViewController {
     
+    var duration: TimeInterval = 10
+    
+    var score = 0
+    
     var scene: SCNScene {
         (view as! SCNView).scene!
     }
@@ -20,17 +24,28 @@ class GameViewController: UIViewController {
     }
     
     func addShip() {
-        // retrieve the ship node
-//        let ship = scene.rootNode.childNode(withName: "ship", recursively: true)!
-        ship?.position.z = -105
+        // set ship position
+        let x = Int.random(in: -25 ... 25)
+        let y = Int.random(in: -25 ... 25)
+        let z = -105
+        
+        ship?.position = SCNVector3(x, y, z)
+        
+        // remove ship animation
+        ship?.removeAllActions()
+        
+        // set ship orientation
+        ship?.look(at: SCNVector3(2 * x, 2 * y, 2 * z))
         
         // animate the 3d object
-        ship?.runAction(SCNAction.move(to: SCNVector3(), duration: 15)) {
+        ship?.runAction(SCNAction.move(to: SCNVector3(), duration: duration)) {
             DispatchQueue.main.async {
                 self.ship?.removeFromParentNode()
             }
             print(#line, "GAME OVER")
         }
+        
+        duration *= 0.9
     }
 
     override func viewDidLoad() {
@@ -104,14 +119,17 @@ class GameViewController: UIViewController {
             
             // highlight it
             SCNTransaction.begin()
-            SCNTransaction.animationDuration = 0.5
+            SCNTransaction.animationDuration = 0.2
             
             // on completion - unhighlight
             SCNTransaction.completionBlock = {
+                material.emission.contents = UIColor.black
+                
                 DispatchQueue.main.async {
-                    self.ship?.removeFromParentNode()
+                    self.addShip()
                 }
-                print(#line, "Ship has been shot")
+                self.score += 1
+                print(#line, self.score)
             }
             
             material.emission.contents = UIColor.red
