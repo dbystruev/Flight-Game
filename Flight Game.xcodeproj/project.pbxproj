@@ -12,6 +12,8 @@
 		692B5DC225B9A9F100303361 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692B5DC125B9A9F100303361 /* GameViewController.swift */; };
 		692B5DC525B9A9F100303361 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 692B5DC325B9A9F100303361 /* Main.storyboard */; };
 		692B5DC725B9A9F400303361 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 692B5DC625B9A9F400303361 /* Assets.xcassets */; };
+		6967CDB825BB14F90097CB0F /* Screenshot02.png in Resources */ = {isa = PBXBuildFile; fileRef = 6967CDB625BB14F90097CB0F /* Screenshot02.png */; };
+		6967CDB925BB14F90097CB0F /* Screenshot01.png in Resources */ = {isa = PBXBuildFile; fileRef = 6967CDB725BB14F90097CB0F /* Screenshot01.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		692B5DC425B9A9F100303361 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		692B5DC625B9A9F400303361 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		692B5DC825B9A9F400303361 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6967CDB625BB14F90097CB0F /* Screenshot02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Screenshot02.png; sourceTree = "<group>"; };
+		6967CDB725BB14F90097CB0F /* Screenshot01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Screenshot01.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,12 +60,22 @@
 			children = (
 				692B5DBD25B9A9F000303361 /* AppDelegate.swift */,
 				692B5DBF25B9A9F100303361 /* art.scnassets */,
-				692B5DC125B9A9F100303361 /* GameViewController.swift */,
-				692B5DC325B9A9F100303361 /* Main.storyboard */,
 				692B5DC625B9A9F400303361 /* Assets.xcassets */,
+				692B5DC125B9A9F100303361 /* GameViewController.swift */,
 				692B5DC825B9A9F400303361 /* Info.plist */,
+				692B5DC325B9A9F100303361 /* Main.storyboard */,
+				6967CDB525BB14ED0097CB0F /* Screenshots */,
 			);
 			path = "Flight Game";
+			sourceTree = "<group>";
+		};
+		6967CDB525BB14ED0097CB0F /* Screenshots */ = {
+			isa = PBXGroup;
+			children = (
+				6967CDB725BB14F90097CB0F /* Screenshot01.png */,
+				6967CDB625BB14F90097CB0F /* Screenshot02.png */,
+			);
+			path = Screenshots;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -124,6 +138,8 @@
 				692B5DC025B9A9F100303361 /* art.scnassets in Resources */,
 				692B5DC725B9A9F400303361 /* Assets.xcassets in Resources */,
 				692B5DC525B9A9F100303361 /* Main.storyboard in Resources */,
+				6967CDB925BB14F90097CB0F /* Screenshot01.png in Resources */,
+				6967CDB825BB14F90097CB0F /* Screenshot02.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
