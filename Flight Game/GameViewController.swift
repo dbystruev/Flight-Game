@@ -11,16 +11,38 @@ import SceneKit
 
 class GameViewController: UIViewController {
     
+    // MARK: - Outlets
+    let scoreLabel = UILabel()
+    
+    // MARK: - Stored Properties
     var duration: TimeInterval = 10
     
-    var score = 0
+    var score = 0 {
+        didSet {
+            scoreLabel.text = "Score: \(score)"
+        }
+    }
     
+    // MARK: - Computed Properties
     var scene: SCNScene {
         (view as! SCNView).scene!
     }
     
     var ship: SCNNode? {
         scene.rootNode.childNode(withName: "ship", recursively: true)
+    }
+    
+    // MARK: - Methods
+    func addLabel() {
+        scoreLabel.font = UIFont.systemFont(ofSize: 30)
+        scoreLabel.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 100)
+        scoreLabel.numberOfLines = 2
+        scoreLabel.textAlignment = .center
+        scoreLabel.textColor = .white
+        
+        view.addSubview(scoreLabel)
+        
+        score = 0
     }
     
     func addShip() {
@@ -40,9 +62,9 @@ class GameViewController: UIViewController {
         // animate the 3d object
         ship?.runAction(SCNAction.move(to: SCNVector3(), duration: duration)) {
             DispatchQueue.main.async {
+                self.scoreLabel.text = "GAME OVER\nScore: \(self.score)"
                 self.ship?.removeFromParentNode()
             }
-            print(#line, "GAME OVER")
         }
         
         duration *= 0.9
@@ -95,6 +117,9 @@ class GameViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         scnView.addGestureRecognizer(tapGesture)
         
+        // add label
+        addLabel()
+        
         // add ship
         addShip()
     }
@@ -129,7 +154,6 @@ class GameViewController: UIViewController {
                     self.addShip()
                 }
                 self.score += 1
-                print(#line, self.score)
             }
             
             material.emission.contents = UIColor.red
@@ -138,6 +162,7 @@ class GameViewController: UIViewController {
         }
     }
     
+    // MARK: - Inherited Computed Properties
     override var shouldAutorotate: Bool {
         return true
     }
