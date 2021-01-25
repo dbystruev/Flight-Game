@@ -46,6 +46,8 @@ class GameViewController: UIViewController {
     }
     
     func addShip() {
+        ship?.rotation = SCNVector4()
+        
         // set ship position
         let x = Int.random(in: -25 ... 25)
         let y = Int.random(in: -25 ... 25)
